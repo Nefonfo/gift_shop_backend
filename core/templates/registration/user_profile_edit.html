@@ -1,0 +1,9 @@
+{% extends 'layouts/master.html' %}
+
+{% block content %}
+    <form  method="POST" action="{% url 'profile:edit' %}" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        {{form.as_table}}
+        <button type="submit">Guardar</button>
+    </form>
+{% endblock content %}

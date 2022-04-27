@@ -1,0 +1,10 @@
+{% extends 'layouts/master.html' %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_table}}
+        <button type="submit">Registrarse</button>
+    </form>
+    <h4>¿Estas registrado? <a href="{% url 'login' %}">Has click aqui</a></h4>
+{% endblock content %}

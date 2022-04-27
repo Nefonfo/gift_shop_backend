@@ -1,0 +1,50 @@
+{% extends 'layouts/master.html' %}
+
+{% block content %}
+    <a href="{% url 'profile:view' %}">Ir a mi perfil</a>
+    <a href="{% url 'address:add' %}">Nueva Dirección</a>
+    
+    
+    {% if client_address_list %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Calle</th>
+                    <th>Numero ext</th>
+                    <th>Numero int</th>
+                    <th>Colonia</th>
+                    <th>Municipio</th>
+                    <th>Estado</th>
+                    <th>Codigo Postal</th>
+                    <th>Telefono</th>
+                    <th>Notas adicionales</th>
+                    <th>Editar</th>
+                    <th>Borrar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client_address in client_address_list %}
+                    <tr>
+                        <th>{{client_address.street}}</th>
+                        <th>{{client_address.ext_number}}</th>
+                        <th>{{client_address.int_number}}</th>
+                        <th>{{client_address.colony}}</th>
+                        <th>{{client_address.municipality}}</th>
+                        <th>{{client_address.country}}</th>
+                        <th>{{client_address.zip_code}}</th>
+                        <th>{{client_address.phone_number}}</th>
+                        <th>{{client_address.additional_notes}}</th>
+                        <th><a href="{% url 'address:update' client_address.id %}">Actualizar</a></th>
+                        <th><a href="{% url 'address:delete' client_address.id %}">Borrar</a></th>
+                    </tr>
+                {% endfor %}    
+            </tbody>
+        </table>
+          
+    {% else %}
+        <h1>No hay direcciones registradas</h1>
+    {% endif %}
+        
+    
+    
+{% endblock content %}

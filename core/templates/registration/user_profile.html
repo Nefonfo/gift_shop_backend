@@ -1,0 +1,14 @@
+{% extends 'layouts/master.html' %}
+
+{% block content %}
+    <h1>Mi perfil</h1>
+    {% if user.wagtail_userprofile.avatar %}
+        <img src="{{user.wagtail_userprofile.avatar.url}}"}}">
+    {% endif %}
+    <a href="{% url 'profile:edit' %}">Editar perfil</a>
+    <a href="{% url 'logout' %}">Logout</a>
+    <h3>Nombre: {{user.first_name}} {{user.last_name}}</h3>
+    <h3>Correo: {{user.email}}</h3> 
+
+    <h1><a href="{% url 'address:view' %}">Mis Direcciones</a></h1>
+{% endblock content %}

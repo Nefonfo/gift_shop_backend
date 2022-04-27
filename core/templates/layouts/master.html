@@ -1,0 +1,40 @@
+{% load static wagtailcore_tags wagtailuserbar %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+            {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+        {% endblock %}
+        {% block title_suffix %}
+            {% wagtail_site as current_site %}
+            {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+        {% endblock %}
+    </title>
+
+    {# Global css #}
+    {% block extra_css %}
+            {# Override this in templates to add extra stylesheets #}
+    {% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    {% wagtailuserbar %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}bg-danger text-white{% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}bg-success text-white{% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}bg-warning text-white{% endif %} mt-n4 mb-2 bounce animated p-3 d-flex align-items-center justify-content-center justify-content-md-start">
+                <h4 class="m-0"><i class="fa {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}fa-times-circle{% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}fa-check-circle{% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}fa-exclamation-triangle{% endif %}"></i>&nbsp;{{message}}</h4>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+
+    {# Global javascript #}
+
+    {% block extra_js %}
+        {# Override this in templates to add extra javascript #}
+    {% endblock %}
+</body>
+</html>

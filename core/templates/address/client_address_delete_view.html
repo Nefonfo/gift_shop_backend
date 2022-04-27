@@ -1,0 +1,11 @@
+{% extends 'layouts/master.html' %}
+
+{% block content %}
+    <h1>¿Estas seguro de borrar {{object}}?</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Borrar</button>
+        <a href="{% url 'address:view' %}">Regresar</a>
+    </form>
+{% endblock content %}
