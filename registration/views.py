@@ -1,17 +1,52 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView, FormView, CreateView
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib.auth import authenticate, login
 
 from wagtail.users.models import UserProfile
 
 from .models import User
-from .forms import UserProfileForm, UserRegisterForm
+from .forms import UserRegisterForm, UserProfileForm
 
 # Create your views here.
+
+class UserSignUpView(TemplateView):
+    template_name = 'registration/user_signup.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['register_form'] = UserRegisterForm()
+        context['sign_form'] = AuthenticationForm()
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        if request.POST.get('action', None ) == 'register':
+            form = UserRegisterForm(request.POST)
+            form.save()
+            messages.success(request, _('Created Successful'))
+        elif request.POST.get('action', None) == 'login':
+            form = AuthenticationForm(request=request, data=request.POST)
+            if form.is_valid():
+                username = form.cleaned_data.get('username')
+                password = form.cleaned_data.get('password')
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    messages.success(request, _('Welcome'))
+                    return HttpResponseRedirect(reverse('profile:view'))
+                else:
+                    print('paso')
+                    messages.warning(request, _('User or password incorrect'))
+            else:
+                messages.warning(request, _('User or password incorrect'))
+            
+        return self.render_to_response(context)
 class UserProfileView(LoginRequiredMixin, TemplateView):
 
     template_name = 'registration/user_profile.html'

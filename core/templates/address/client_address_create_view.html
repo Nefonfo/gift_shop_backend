@@ -1,9 +1,81 @@
 {% extends 'layouts/master.html' %}
 
+{% load static %}
+
+{% block title %}
+Nueva Dirección de {{request.user.first_name}} {{request.user.last_name}}
+{% endblock title %}
+
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{form.as_table}}
-        <button type="submit">Guardar</button>
-    </form>
+<div class="hero h-96" style="background-image: url({% static 'core/assets/img/address_edit_wallpaper.jpg' %});">
+    <div class="hero-overlay bg-opacity-60"></div>
+    <div class="hero-content text-center text-neutral-content">
+      <div class="max-w-md">
+        <h1 class="mb-5 text-5xl font-serif font-bold">Agregar Dirección</h1>
+      </div>
+    </div>
+</div>
+<form method="POST" novalidate class="w-full px-4 py-16 flex flex-wrap justify-evenly items-start bg-secondary-focus md:px-8">
+    {% csrf_token %}
+    <div class="flex flex-col">
+        <div class="form-control">
+            <label class="label"><span class="label-text">Tu Calle*</span></label>
+            <label class="input-group"><span>Calle</span>
+            <input class="input input-bordered w-full" type="text" id="{{form.street.name}}" name="{{form.street.name}}">
+            </label>
+        </div>
+        <div class="form-control">
+            <label class="label"><span class="label-text">Tu Numero Exterior*</span></label>
+            <label class="input-group"><span>Num Ext</span>
+            <input class="input input-bordered w-full" type="text" id="{{form.ext_number.name}}" name="{{form.ext_number.name}}">
+            </label>
+        </div>
+        <div class="form-control">
+            <label class="label"><span class="label-text">Tu Numero Interior</span></label>
+            <label class="input-group"><span>Num Int</span>
+            <input class="input input-bordered w-full" type="text" id="{{form.int_number.name}}" name="{{form.int_number.name}}">
+            </label>
+        </div>
+        <div class="form-control">
+            <label class="label"><span class="label-text">Tu Colonia*</span></label>
+            <label class="input-group"><span>Colonia</span>
+            <input class="input input-bordered w-full" type="text" id="{{form.colony.name}}" name="{{form.colony.name}}">
+            </label>
+        </div>
+    </div>
+    <div class="flex flex-col">
+        <div class="form-control">
+            <label class="label"><span class="label-text">Tu Delegación/Municipio*</span></label>
+            <label class="input-group"><span>Municipio</span>
+            <input class="input input-bordered w-full" type="text" id="{{form.municipality.name}}" name="{{form.municipality.name}}">
+            </label>
+        </div>
+        <div class="form-control">
+            <label class="label"><span class="label-text">Tu Ciudad*</span></label>
+            <label class="input-group"><span>Ciudad</span>
+            <input class="input input-bordered w-full" type="text" id="{{form.country.name}}" name="{{form.country.name}}">
+            </label>
+        </div>
+        <div class="form-control">
+            <label class="label"><span class="label-text">Tu Código Postal*</span></label>
+            <label class="input-group"><span>C.P.</span>
+            <input class="input input-bordered w-full" type="text" id="{{form.zip_code.name}}" name="{{form.zip_code.name}}">
+            </label>
+        </div>
+        <div class="form-control">
+            <label class="label"><span class="label-text">Tu Celular*</span></label>
+            <label class="input-group"><span>Teléfono</span>
+            <input class="input input-bordered w-full" type="text" id="{{form.phone_number.name}}" name="{{form.phone_number.name}}">
+            </label>
+        </div>
+    </div>
+    <div class="flex flex-col mt-4 md:mt-0">
+      <div class="form-control mb-8">
+        <label class="label"><span class="label-text">Notas Adicionales</span></label>
+        <textarea class="w-full textarea textarea-bordered" id="{{form.additional_notes.name}}" name="{{form.additional_notes.name}}"></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit">Guardar</button>
+    </div>
+</form>
+
 {% endblock content %}

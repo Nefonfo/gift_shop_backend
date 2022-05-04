@@ -21,10 +21,11 @@ WAGTAIL_USER_EDIT_FORM = 'registration.forms.CustomUserEditForm'
 WAGTAIL_USER_CREATION_FORM = 'registration.forms.CustomUserCreationForm'
 WAGTAIL_USER_CUSTOM_FIELDS = ['email',]
 
-LOGOUT_REDIRECT_URL = '/accounts/login'
+LOGOUT_REDIRECT_URL = '/accounts/profile/signup/'
+LOGIN_URL = '/accounts/profile/signup/'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
 
 # Application definition
 
@@ -32,6 +33,10 @@ INSTALLED_APPS = [
     'core',
     'registration',
     'address',
+    'product',
+    'basket',
+    'gift_table',
+    'order',
     'home',
     'search',
 
@@ -57,6 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    'django_extensions',
     'django_cleanup.apps.CleanupConfig',
 ]
 

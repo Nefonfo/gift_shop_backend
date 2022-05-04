@@ -1,0 +1,87 @@
+{% extends 'layouts/master.html' %}
+
+{% load static i18n %}
+
+{% block title %}
+Palamo. | {% trans "Sign In" %}
+{% endblock title %}
+
+{% block content %}
+<div class="relative top-0 left-0 hero h-screen" style="background-image: url('{% static 'core/assets/img/signup_wallpaper.jpg' %}');">
+    <div class="hero-overlay bg-opacity-40"></div>
+    <div class="w-full px-2 text-center text-neutral-content md:px-12 md:text-left">
+      <div class="flex w-full">
+        <form class="w-full card bg-base-100 shadow-xl md:w-1/2 lg:w-2/5" method="POST">
+        {% csrf_token %}
+          <div class="card-body">
+            <h2 class="card-title">{% trans "Log In" %}</h2>
+            <div class="py-4" method="POST"> 
+              <div class="form-control">
+                <label class="label"><span class="label-text">{% trans "Your Email" %}</span></label>
+                <label class="input-group"><span>{% trans "Email" %}</span>
+                  <input class="input input-bordered" type="email" id="{{sign_form.username.name}}" name="{{sign_form.username.name}}">
+                </label>
+                <label class="label"><span class="label-text">{% trans "Your Password" %}</span></label>
+                <label class="input-group"><span>{% trans "Password" %}</span>
+                  <input class="input input-bordered" type="password" id="{{sign_form.password.name}}" name="{{sign_form.password.name}}">
+                </label>
+              </div>
+            </div>
+            <div class="flex flex-col justify-start text-left my-2">
+              <a class="link" href="#register">{% trans "Are you registered?" %}</a>
+              <a class="link" href="">{% trans "Forgot password?" %}</a>
+            </div>
+            <div class="card-actions justify-end">
+              <button type="submit" id="sign_button" class="btn btn-primary" name='action' value='login'>Entrar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+</div> 
+
+<div class="modal modal-bottom sm:modal-middle" id="register">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">{% trans "You don't have an account?" %}</h3>
+      <form method="POST">
+          {% csrf_token %}
+        <div class="py-6">
+          <div class="form-control">
+            <label class="label"><span class="label-text">{% trans "Your Email" %}</span></label>
+            <label class="input-group"><span>{% trans "Email" %}</span>
+              <input class="input input-bordered" type="email" id="{{register_form.email.name}}" name="{{register_form.email.name}}">
+            </label>
+          </div>
+          <div class="form-control">
+            <label class="label"><span class="label-text">{% trans "Your First Name" %}</span></label>
+            <label class="input-group"><span>{% trans "Name(s)" %}</span>
+              <input class="input input-bordered" type="text" id="{{register_form.first_name.name}}" name="{{register_form.first_name.name}}">
+            </label>
+          </div>
+          <div class="form-control">
+            <label class="label"><span class="label-text">{% trans "Your Last Name" %}</span></label>
+            <label class="input-group"><span>{% trans "Last Name" %}</span>
+              <input class="input input-bordered" type="text" id="{{register_form.last_name.name}}" name="{{register_form.last_name.name}}">
+            </label>
+          </div>
+          <div class="form-control">
+            <label class="label"><span class="label-text">{% trans "Your Password" %}</span></label>
+            <label class="input-group"><span>{% trans "Password" %}</span>
+              <input class="input input-bordered" type="password" id="{{register_form.password1.name}}" name="{{register_form.password1.name}}">
+            </label>
+          </div>
+          <div class="form-control">
+            <label class="label"><span class="label-text">{% trans "Confirm Password" %}</span></label>
+            <label class="input-group"><span>{% trans "Password" %}</span>
+              <input class="input input-bordered" type="password" id="{{register_form.password2.name}}" name="{{register_form.password2.name}}">
+            </label>
+          </div>
+        </div>
+        <div class="modal-action">
+            <a class="btn" href="#">{% trans "Cancel" %}</a>
+            <button class="btn btn-primary" type="submit" name='action' value='register'>{% trans "Register" %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

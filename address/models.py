@@ -49,6 +49,6 @@ class ClientAddress(index.Indexed, models.Model):
     ]
     
     def __str__(self) -> str:
-        return '{}, {}, {}, {}, {}, {}'.format(self.street, self.ext_number, self.colony, self.municipality, self.country, self.zip_code)
+        return f"{_('Street')} {self.street}, #{self.ext_number} ({ _('No interior number') if self.int_number is None else _('Int Number:')+self.int_number }), {_('Colony')} {self.colony}, {self.municipality}, {self.country}, México. {_('ZIP')} {self.zip_code}"
     
     

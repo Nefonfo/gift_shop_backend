@@ -25,7 +25,7 @@ class UserRegisterForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(UserRegisterForm, self).__init__(*args, **kwargs)
         self.fields.pop('is_superuser')
-    
+
 class UserProfileForm(forms.Form):
     avatar = forms.ImageField(required = False, label = _('Avatar'))
     email = forms.EmailField(required = True, label = _('Email'))
@@ -36,7 +36,7 @@ class UserProfileForm(forms.Form):
         form_data = self.cleaned_data
         user_with_email = User.objects.filter(email = form_data['email'])
         if user_with_email.exists() and user.email != form_data['email']:
-            raise IntegrityError(_('User Email may be unique'))
+            raise IntegrityError(_('The email is alredy used, recover your account'))
         else:
             user.email = form_data['email']
             user.first_name = form_data['first_name']

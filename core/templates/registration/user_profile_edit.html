@@ -1,9 +1,53 @@
 {% extends 'layouts/master.html' %}
 
+{% load static i18n %}
+
+{% block title %}
+  {% trans "Edit My Profile" %} | {{request.user.first_name}} {{request.user.last_name}}
+{% endblock title %}
+
 {% block content %}
-    <form  method="POST" action="{% url 'profile:edit' %}" enctype="multipart/form-data" novalidate>
-        {% csrf_token %}
-        {{form.as_table}}
-        <button type="submit">Guardar</button>
-    </form>
+<div class="hero h-96" style="background-image: url({% static 'core/assets/img/profile_edit_wallpaper.jpg' %});">
+    <div class="hero-overlay bg-opacity-60"></div>
+    <div class="hero-content text-center text-neutral-content">
+      <div class="max-w-md">
+        <h1 class="mb-5 text-5xl font-serif font-bold">{% trans "Edit My Profile" %}</h1>
+      </div>
+      
+    </div>
+</div>
+<form method="POST" action="{% url 'profile:edit' %}" enctype="multipart/form-data" novalidate class="w-full px-4 py-10 flex flex-wrap justify-evenly items-center bg-secondary-focus md:px-8">
+    <div class="flex flex-col items-center mb-4 md:mb-0">
+        <div class="shrink-0">
+          <img class="h-40 w-40 object-cover rounded-full" src="{% if user.wagtail_userprofile.avatar %}{{user.wagtail_userprofile.avatar.url}}{% else %}{% static 'core/assets/img/avatar.png' %}{% endif %}" alt="Current profile photo">
+        </div>
+        <label class="block mt-5 transition-all ease-in-out duration-300"><span class="sr-only">{% trans "Choose profile photo" %}</span>
+            <input class="block w-full text-sm text-neutral-content file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-content file:text-neutral-content hover:file:bg-neutral-focus" type="file" id="{{form.avatar.name}}" name="{{form.avatar.name}}" >
+        </label>
+    </div>
+    <div class="flex flex-col justify-center py-4">
+      {% csrf_token %}
+      <div class="form-control">
+        <label class="label"><span class="label-text">{% trans "Your Email" %}</span></label>
+        <label class="input-group"><span>{% trans "Email" %}</span>
+          <input class="input input-bordered w-full" type="email" id={{form.email.name}} name="{{form.email.name}}" value="{{form.email.value}}">
+        </label>
+      </div>
+      <div class="form-control">
+        <label class="label"><span class="label-text">{% trans "Your First Name" %}</span></label>
+        <label class="input-group"><span>{% trans "Name(s)" %}</span>
+          <input class="input input-bordered w-full" type="text" id="{{form.first_name.name}}" name="{{form.first_name.name}}" value="{{form.first_name.value}}">
+        </label>
+      </div>
+      <div class="form-control">
+        <label class="label"><span class="label-text">{% trans "Your Last Name" %}</span></label>
+        <label class="input-group"><span>{% trans "Last Name" %}</span>
+          <input class="input input-bordered w-full" type="text" id="{{form.last_name.name}}" name="{{form.last_name.name}}" value="{{form.last_name.value}}">
+        </label>
+      </div>
+    </div>
+    <div class="w-full flex justify-center items-center mt-6"><a class="mx-4 btn" href="">{% trans "Change Password" %}</a>
+      <button type="submit" class="mx-4 btn btn-primary">{% trans "Update" %}</button>
+    </div>
+</form>
 {% endblock content %}

@@ -1,0 +1,33 @@
+{% extends 'layouts/master.html' %}
+
+{% load static wagtailimages_tags %}
+
+{% block title %}
+  Palamo. {% if request.user.is_authenticated %}{{request.user.first_name}}{% endif %}
+{% endblock title %}
+
+{% block content %}
+<div class="relative top-0 left-0 hero h-screen" style="background-image: url({% static 'core/assets/img/index_wallpaper.jpg' %});">
+    <div class="hero-overlay bg-opacity-60 md:bg-opacity-0"></div>
+    <div class="w-full px-12 text-center text-neutral-content md:text-left">
+      <div class="flex flex-col w-full justify-center md:justify-start md:w-1/2 lg:w-1/3">
+        <h1 class="mb-10 text-6xl font-bold font-serif md:text-7xl lg:text-8xl">Palamo.</h1>
+        <p class="mb-1 text-2xl font-serif">Dedicados a recolectar los más grandes deseos de la persona</p>
+        <div class="flex flex-row text-center justify-center text-center md:text-left md:justify-start">
+          <p class="text-2xl font-bold font-serif text-red-400"><span data-typed='["Festejada.", "Afortunada.", "Dichosa.", "Feliz.", "Suertuda."]'></span></p>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="bg-primary-content flex flex-wrap justify-center items-center px-6 py-6">
+    <div class="w-full my-6 flex justify-center">
+      <h1 class="text-3xl font-serif font-bold">Productos más recientes</h1>
+    </div>
+    {% for product in index_products %}
+        {% include 'product/components/product_card.html' with selected_product=product %}
+    {% empty %}
+        <h1 class="text-neutral-content">No hay productos</h1>
+    {% endfor %}
+    <div class="w-full my-6 flex justify-center md:justify-end"><a class="btn btn-active btn-lg" href="">Ver más</a></div>
+</div>
+{% endblock content %}

@@ -1,50 +1,27 @@
 {% extends 'layouts/master.html' %}
 
+{% load static %}
+
+{% block title %}Mis Direcciones | {{request.user.first_name}} {{request.user.last_name}}{% endblock title %}
+
 {% block content %}
-    <a href="{% url 'profile:view' %}">Ir a mi perfil</a>
-    <a href="{% url 'address:add' %}">Nueva Dirección</a>
-    
-    
-    {% if client_address_list %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Calle</th>
-                    <th>Numero ext</th>
-                    <th>Numero int</th>
-                    <th>Colonia</th>
-                    <th>Municipio</th>
-                    <th>Estado</th>
-                    <th>Codigo Postal</th>
-                    <th>Telefono</th>
-                    <th>Notas adicionales</th>
-                    <th>Editar</th>
-                    <th>Borrar</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for client_address in client_address_list %}
-                    <tr>
-                        <th>{{client_address.street}}</th>
-                        <th>{{client_address.ext_number}}</th>
-                        <th>{{client_address.int_number}}</th>
-                        <th>{{client_address.colony}}</th>
-                        <th>{{client_address.municipality}}</th>
-                        <th>{{client_address.country}}</th>
-                        <th>{{client_address.zip_code}}</th>
-                        <th>{{client_address.phone_number}}</th>
-                        <th>{{client_address.additional_notes}}</th>
-                        <th><a href="{% url 'address:update' client_address.id %}">Actualizar</a></th>
-                        <th><a href="{% url 'address:delete' client_address.id %}">Borrar</a></th>
-                    </tr>
-                {% endfor %}    
-            </tbody>
-        </table>
-          
-    {% else %}
-        <h1>No hay direcciones registradas</h1>
-    {% endif %}
-        
-    
-    
+<div class="hero h-96" style="background-image: url({% static 'core/assets/img/address_view_wallpaper.jpg' %});">
+    <div class="hero-overlay bg-opacity-60"></div>
+    <div class="hero-content text-center text-neutral-content">
+      <div class="max-w-md">
+        <h1 class="mb-5 text-5xl font-serif font-bold">Mis Direcciones</h1>
+        <a href="{% url 'address:add' %}" class="btn btn-primary">Agregar Dirección</a>
+      </div>
+    </div>
+</div>
+<div class="w-full px-4 py-10 flex flex-wrap justify-center bg-secondary-focus md:px-8">
+    {% for client_address in client_address_list %}
+        {% include 'address/components/address_card.html' with card_address=client_address %}
+    {% empty %}
+        <div class="w-full flex flex-wrap justify-center">
+            <h1 class="font-bold font-serif text-4xl text-primary">No hay direcciones aún </h1>
+        </div>
+    {% endfor %}    
+
+</div>
 {% endblock content %}

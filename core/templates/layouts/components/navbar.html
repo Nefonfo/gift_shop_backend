@@ -1,0 +1,57 @@
+{% load static i18n %}
+
+<div class="navbar bg-transparent fixed top-0 left-0 z-10 transition-all ease-in-out duration-600 md:px-8" id="padalamo-navbar">
+   <div class="flex-1">
+      <div class="dropdown">
+         <a class="btn btn-ghost normal-case text-xl rounded-full border-solid border-2 border-neutral-content" tabindex="0">
+            <div class="fa-solid fa-gift"></div>
+         </a>
+         <ul class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52" tabindex="0">
+            <li><a href="{% url 'products:index' %}">{% trans "Home" %}</a></li>
+            <li><a>{% trans "Products" %}</a></li>
+            <li><a>{% trans "Contact" %}</a></li>
+         </ul>
+      </div>
+      <h6 class="ml-4 font-serif font-bold">Palamo.</h6>
+   </div>
+   <div class="flex-none">
+      <div class="dropdown dropdown-end">
+         <label class="btn btn-ghost btn-circle" tabindex="0">
+            <div class="indicator"></div>
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+            <span class="badge badge-sm indicator-item">8</span>
+         </label>
+         <div class="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow" tabindex="0">
+            <div class="card-body">
+               <span class="font-bold text-lg">8 {% trans "Items" %}</span><span class="text-info">{% trans "Subtotal" %}: $999</span>
+               <div class="card-actions">
+                  <button class="btn btn-primary btn-block">{% trans "View cart" %}</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="dropdown dropdown-end">
+         <label class="btn btn-ghost btn-circle avatar" tabindex="0">
+            <div class="w-10 rounded-full">
+               {% if request.user.is_authenticated and request.user.wagtail_userprofile.avatar %}
+                  <img src="{{request.user.wagtail_userprofile.avatar.url}}">
+               {% else %}
+                  <img src="{% static 'core/assets/img/avatar.png' %}">
+               {% endif %}
+            </div>
+         </label>
+         <ul class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52" tabindex="0">
+            {% if request.user.is_authenticated %}
+               <li><a href="{% url 'profile:view' %}" class="justify-between">{% trans "Profile" %}</a></li>
+               <li><a>{% trans "Orders" %}</a></li>
+               <li><a href="{% url 'logout'%}">{% trans "Logout" %}</a></li>
+            {% else %}
+               <li><a href="{% url 'profile:signup' %}">{% trans "Log In" %}</a></li>
+               <li><a href="{% url 'profile:signup'  %}">{% trans "Register" %}</a></li>
+            {% endif %}
+         </ul>
+      </div>
+   </div>
+</div>
