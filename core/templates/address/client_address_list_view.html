@@ -1,8 +1,8 @@
 {% extends 'layouts/master.html' %}
 
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Mis Direcciones | {{request.user.first_name}} {{request.user.last_name}}{% endblock title %}
+{% block title %}{% trans "My Addresses" %} | {{request.user.first_name}} {{request.user.last_name}}{% endblock title %}
 
 {% block content %}
 <div class="hero h-96" style="background-image: url({% static 'core/assets/img/address_view_wallpaper.jpg' %});">

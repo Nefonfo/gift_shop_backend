@@ -1,6 +1,6 @@
 {% extends 'layouts/master.html' %}
 
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
 Editar Dirección de {{request.user.first_name}} {{request.user.last_name}}
@@ -11,7 +11,7 @@ Editar Dirección de {{request.user.first_name}} {{request.user.last_name}}
     <div class="hero-overlay bg-opacity-60"></div>
     <div class="hero-content text-center text-neutral-content">
         <div class="max-w-md">
-            <h1 class="mb-5 text-5xl font-serif font-bold">Editar Dirección</h1>
+            <h1 class="mb-5 text-5xl font-serif font-bold">{% trans "Update Address" %}</h1>
         </div>
     </div>
 </div>
@@ -19,62 +19,62 @@ Editar Dirección de {{request.user.first_name}} {{request.user.last_name}}
     {% csrf_token %}
     <div class="flex flex-col">
         <div class="form-control">
-            <label class="label"><span class="label-text">Tu Calle*</span></label>
-            <label class="input-group"><span>Calle</span>
+            <label class="label"><span class="label-text">{% trans "Your Street" %}*</span></label>
+            <label class="input-group"><span>{% trans "Street" %}</span>
             <input class="input input-bordered w-full" type="text" id="{{form.street.name}}" name="{{form.street.name}}" value="{{form.street.value}}">
             </label>
         </div>
         <div class="form-control">
-            <label class="label"><span class="label-text">Tu Numero Exterior*</span></label>
-            <label class="input-group"><span>Num Ext</span>
+            <label class="label"><span class="label-text">{% trans "Your External Number" %}*</span></label>
+            <label class="input-group"><span>{% trans "External Number" %}</span>
             <input class="input input-bordered w-full" type="text" id="{{form.ext_number.name}}" name="{{form.ext_number.name}}" value="{{form.ext_number.value}}">
             </label>
         </div>
         <div class="form-control">
-            <label class="label"><span class="label-text">Tu Numero Interior</span></label>
-            <label class="input-group"><span>Num Int</span>
+            <label class="label"><span class="label-text">{% trans "Your Internal Number" %}</span></label>
+            <label class="input-group"><span>{% trans "Internal Number" %}</span>
             <input class="input input-bordered w-full" type="text" id="{{form.int_number.name}}" name="{{form.int_number.name}}" value="{{form.int_number.value|default_if_none:''}}">
             </label>
         </div>
         <div class="form-control">
-            <label class="label"><span class="label-text">Tu Colonia*</span></label>
-            <label class="input-group"><span>Colonia</span>
+            <label class="label"><span class="label-text">{% trans "Your Colony" %}*</span></label>
+            <label class="input-group"><span>{% trans "Colony" %}</span>
             <input class="input input-bordered w-full" type="text" id="{{form.colony.name}}" name="{{form.colony.name}}" value="{{form.colony.value}}">
             </label>
         </div>
     </div>
     <div class="flex flex-col">
         <div class="form-control">
-            <label class="label"><span class="label-text">Tu Delegación/Municipio*</span></label>
-            <label class="input-group"><span>Municipio</span>
+            <label class="label"><span class="label-text">{% trans "Your Municipality" %}*</span></label>
+            <label class="input-group"><span>{% trans "Municipality" %}</span>
             <input class="input input-bordered w-full" type="text" id="{{form.municipality.name}}" name="{{form.municipality.name}}" value="{{form.municipality.value}}">
             </label>
         </div>
         <div class="form-control">
-            <label class="label"><span class="label-text">Tu Ciudad*</span></label>
-            <label class="input-group"><span>Ciudad</span>
+            <label class="label"><span class="label-text">{% trans "Your Country" %}*</span></label>
+            <label class="input-group"><span>{% trans "Country" %}</span>
             <input class="input input-bordered w-full" type="text" id="{{form.country.name}}" name="{{form.country.name}}" value="{{form.country.value}}">
             </label>
         </div>
         <div class="form-control">
-            <label class="label"><span class="label-text">Tu Código Postal*</span></label>
-            <label class="input-group"><span>C.P.</span>
+            <label class="label"><span class="label-text">{% trans "Your ZIP Code" %}*</span></label>
+            <label class="input-group"><span>{% trans "ZIP" %}</span>
             <input class="input input-bordered w-full" type="text" id="{{form.zip_code.name}}" name="{{form.zip_code.name}}" value="{{form.zip_code.value}}">
             </label>
         </div>
         <div class="form-control">
-            <label class="label"><span class="label-text">Tu Celular*</span></label>
-            <label class="input-group"><span>Teléfono</span>
+            <label class="label"><span class="label-text">{% trans "Your Phone Number" %}*</span></label>
+            <label class="input-group"><span>{% trans "Phone" %}</span>
             <input class="input input-bordered w-full" type="text" id="{{form.phone_number.name}}" name="{{form.phone_number.name}}" value="{{form.phone_number.value}}">
             </label>
         </div>
     </div>
     <div class="flex flex-col mt-4 md:mt-0">
       <div class="form-control mb-8">
-        <label class="label"><span class="label-text">Notas Adicionales</span></label>
+        <label class="label"><span class="label-text">{% trans "Additional Notes" %}</span></label>
         <textarea class="w-full textarea textarea-bordered" id="{{form.additional_notes.name}}" name="{{form.additional_notes.name}}" value="{{form.additional_notes.value|default_if_none:''}}"></textarea>
       </div>
-      <button class="btn btn-primary" type="submit">Guardar</button>
+      <button class="btn btn-primary" type="submit">{% trans "Save" %}</button>
     </div>
 </form>
 

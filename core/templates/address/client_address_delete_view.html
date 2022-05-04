@@ -1,7 +1,9 @@
 {% extends 'layouts/master.html' %}
 
+{% load i18n %}
+
 {% block title %}
-Borrar Dirección de {{request.user.first_name}} {{request.user.last_name}}
+    {% trans "Delete Address" %} | {{request.user.first_name}} {{request.user.last_name}}
 {% endblock title %}
 
 {% block content %}
@@ -11,11 +13,11 @@ Borrar Dirección de {{request.user.first_name}} {{request.user.last_name}}
         <div class="max-w-md">
             <form method="post">
                 {% csrf_token %}
-                <h1 class="mb-5 text-6xl font-bold font-serif">¿Estas Seguro?</h1>
-                <p class="text-2xl mb-5">Al borrar la dirección no se puede revertir</p>
+                <h1 class="mb-5 text-6xl font-bold font-serif">{% trans "Are you sure?" %}</h1>
+                <p class="text-2xl mb-5">{% trans "If you delete the address, cannot be reverted" %}</p>
                 <div class="flex justify-evenly">
-                    <a href="{% url 'address:view' %}" class="btn btn-primary">Cancelar</a>
-                    <button type="submit" class="btn btn-accent">Borrar</button>
+                    <a href="{% url 'address:view' %}" class="btn btn-primary">{% trans "Cancel" %}</a>
+                    <button type="submit" class="btn btn-accent">{% trans "Delete" %}</button>
                 </div>
             </form>
         </div>

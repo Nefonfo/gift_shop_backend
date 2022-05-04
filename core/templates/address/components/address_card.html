@@ -1,10 +1,11 @@
+{% load i18n %}
 <div class="card bg-base-100 shadow-xl w-full my-3 md:w-2/5 md:mx-4 lg:w-1/4 lg:mx-8">
     <div class="card-body">
-        <h2 class="card-title">Dirección</h2>
+        <h2 class="card-title">{% trans "Address" %}</h2>
         <p>{{client_address}}</p>
         <div class="mt-4 card-actions justify-end">
-            <a href="{% url 'address:delete' client_address.id %}" class="btn btn">Eliminar</a>
-            <a href="{% url 'address:update' client_address.id %}" class="btn btn-accent">Editar</a>
+            <a href="{% url 'address:delete' client_address.id %}" class="btn btn">{% trans "Delete" %}</a>
+            <a href="{% url 'address:update' client_address.id %}" class="btn btn-accent">{% trans "Update" %}</a>
         </div>
     </div>
 </div>

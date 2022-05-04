@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailuserbar %}
+{% load i18n static wagtailcore_tags wagtailuserbar %}
 <!DOCTYPE html>
 <html lang="es" data-theme="luxury">
 <head>
@@ -34,7 +34,7 @@
         {% for message in messages %}
             <script>
                 document.addEventListener('DOMContentLoaded', (e) => {
-                    const title = '{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error{% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}¡Listo!{% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}Información{% endif %}';
+                    const title = '{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}{% trans "Error" %}{% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}{% trans "Ready!" %}{% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}{% trans "Information" %}{% endif %}';
                     const text = '{{message}}';
                     const icon = '{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}error{% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}success{% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}warning{% endif %}';
                     Swal.fire({

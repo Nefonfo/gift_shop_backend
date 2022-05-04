@@ -1,9 +1,9 @@
 {% extends 'layouts/master.html' %}
 
-{% load static wagtailimages_tags %}
+{% load static i18n wagtailimages_tags %}
 
 {% block title %}
-  Palamo. {% if request.user.is_authenticated %}{{request.user.first_name}}{% endif %}
+  Palamo. {% if request.user.is_authenticated %} | {{request.user.first_name}}{% endif %}
 {% endblock title %}
 
 {% block content %}
@@ -12,22 +12,22 @@
     <div class="w-full px-12 text-center text-neutral-content md:text-left">
       <div class="flex flex-col w-full justify-center md:justify-start md:w-1/2 lg:w-1/3">
         <h1 class="mb-10 text-6xl font-bold font-serif md:text-7xl lg:text-8xl">Palamo.</h1>
-        <p class="mb-1 text-2xl font-serif">Dedicados a recolectar los más grandes deseos de la persona</p>
+        <p class="mb-1 text-2xl font-serif">{% trans "Dedicated to collecting the greatest wishes of the person" %}</p>
         <div class="flex flex-row text-center justify-center text-center md:text-left md:justify-start">
-          <p class="text-2xl font-bold font-serif text-red-400"><span data-typed='["Festejada.", "Afortunada.", "Dichosa.", "Feliz.", "Suertuda."]'></span></p>
+          <p class="text-2xl font-bold font-serif text-red-400"><span data-typed='["{% trans "Celebrated." %}", "{% trans "Lucky." %}", "{% trans "Blissful." %}", "{% trans "Happy." %}"]'></span></p>
         </div>
       </div>
     </div>
 </div>
 <div class="bg-primary-content flex flex-wrap justify-center items-center px-6 py-6">
     <div class="w-full my-6 flex justify-center">
-      <h1 class="text-3xl font-serif font-bold">Productos más recientes</h1>
+      <h1 class="text-3xl font-serif font-bold">{% trans "Recent Products" %}</h1>
     </div>
     {% for product in index_products %}
         {% include 'product/components/product_card.html' with selected_product=product %}
     {% empty %}
-        <h1 class="text-neutral-content">No hay productos</h1>
+        <h1 class="text-neutral-content">{% trans "No Products" %}</h1>
     {% endfor %}
-    <div class="w-full my-6 flex justify-center md:justify-end"><a class="btn btn-active btn-lg" href="">Ver más</a></div>
+    <div class="w-full my-6 flex justify-center md:justify-end"><a class="btn btn-active btn-lg" href="">{% trans "See More" %}</a></div>
 </div>
 {% endblock content %}

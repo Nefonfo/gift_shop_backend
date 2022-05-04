@@ -42,9 +42,9 @@ class UserSignUpView(TemplateView):
                     return HttpResponseRedirect(reverse('profile:view'))
                 else:
                     print('paso')
-                    messages.warning(request, _('User or password incorrect'))
+                    messages.error(request, _('User or password incorrect'))
             else:
-                messages.warning(request, _('User or password incorrect'))
+                messages.error(request, _('User or password incorrect'))
             
         return self.render_to_response(context)
 class UserProfileView(LoginRequiredMixin, TemplateView):

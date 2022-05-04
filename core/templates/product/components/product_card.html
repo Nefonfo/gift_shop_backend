@@ -1,18 +1,18 @@
-{% load wagtailimages_tags %}
+{% load i18n wagtailimages_tags %}
 
 <div class="card bg-base-100 shadow-xl w-full my-3 md:w-2/5 md:mx-4 lg:w-1/4 lg:mx-8">
     {% image selected_product.product_images.all.0.carousel_image fill-500x500 as img %}
     <figure><img src="{{img.url}}" alt="{{img.alt}}"></figure>
     <div class="card-body">
         <h2 class="card-title">{{selected_product.name}}</h2>
-        <p class="font-light">Precio: ${{selected_product.price}} MXN</p>
+        <p class="font-light">{% trans "Price" %}: ${{selected_product.price}} MXN</p>
         <div class="card_actions justify-start">
             {% for tag in selected_product.tags.all %}
                 <div class="badge badge-outline">{{tag}}</div>
             {% endfor %}
     </div>
     <div class="card-actions justify-end">
-        <button class="btn btn-primary">Buy Now</button>
+        <button class="btn btn-primary">{% trans "Buy Now" %}</button>
     </div>
     </div>
 </div>
