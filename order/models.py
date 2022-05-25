@@ -73,7 +73,7 @@ class Order(ClusterableModel, models.Model):
     
     panels = [
         SnippetChooserPanel('client'),
-        InlinePanel('product_basket', label = 'products'),
+        InlinePanel('product_order', label = 'products'),
         FieldPanel('address'),
         FieldPanel('sub_total'),
         FieldPanel('discount'),

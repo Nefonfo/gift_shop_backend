@@ -6,6 +6,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.models import ClusterableModel
 
 from taggit.models import TaggedItemBase
+from autoslug import AutoSlugField
 
 from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -42,6 +43,7 @@ class ProductCarouselImages(Orderable):
 @register_snippet
 class Product(ClusterableModel, models.Model):
     name = models.CharField(max_length=70, verbose_name=_('Name'))
+    url = AutoSlugField(populate_from='name', unique = True)
     description = RichTextField(verbose_name=_('Description'))
     price = models.FloatField(verbose_name=_('Price'))
     stock = models.IntegerField(verbose_name=_('Stock'))
@@ -49,6 +51,7 @@ class Product(ClusterableModel, models.Model):
     tags = ClusterTaggableManager(through=ProductTag, blank=True, verbose_name=_('Categories'))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
     
     panels = [
         FieldPanel('name'),

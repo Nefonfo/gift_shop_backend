@@ -28,8 +28,14 @@ class UserSignUpView(TemplateView):
         context = self.get_context_data(**kwargs)
         if request.POST.get('action', None ) == 'register':
             form = UserRegisterForm(request.POST)
-            form.save()
-            messages.success(request, _('Created Successful'))
+            if form.is_valid():
+                form.save()
+                messages.success(request, _('Created Successful'))
+            else:
+                for field in form:
+                    for error in field.errors:
+                        messages.error(request, f"{_('Validation')}: {field.label} - {error}")
+                
         elif request.POST.get('action', None) == 'login':
             form = AuthenticationForm(request=request, data=request.POST)
             if form.is_valid():
@@ -41,7 +47,6 @@ class UserSignUpView(TemplateView):
                     messages.success(request, _('Welcome'))
                     return HttpResponseRedirect(reverse('profile:view'))
                 else:
-                    print('paso')
                     messages.error(request, _('User or password incorrect'))
             else:
                 messages.error(request, _('User or password incorrect'))

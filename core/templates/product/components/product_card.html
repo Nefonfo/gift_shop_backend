@@ -1,6 +1,6 @@
 {% load i18n wagtailimages_tags %}
 
-<div class="card bg-base-100 shadow-xl w-full my-3 md:w-2/5 md:mx-4 lg:w-1/4 lg:mx-8">
+<div class="card bg-base-100 shadow-xl w-full md:w-2/5  lg:w-1/4">
     {% image selected_product.product_images.all.0.carousel_image fill-500x500 as img %}
     <figure><img src="{{img.url}}" alt="{{img.alt}}"></figure>
     <div class="card-body">
@@ -12,7 +12,7 @@
             {% endfor %}
     </div>
     <div class="card-actions justify-end">
-        <button class="btn btn-primary">{% trans "Buy Now" %}</button>
+        <a href="{% url 'products:detail' selected_product.url %}" class="btn btn-primary">{% trans "See Product" %}</a>
     </div>
     </div>
 </div>

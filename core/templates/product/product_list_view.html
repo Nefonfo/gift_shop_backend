@@ -1,0 +1,69 @@
+{% extends 'layouts/master.html' %}
+
+{% load static i18n wagtailimages_tags %}
+
+{% block title %}
+  Palamo. | {% trans "Our Products" %}
+{% endblock title %}
+
+{% block content %}
+<div class="hero h-80" style="background-image: url(https://api.lorem.space/image/fashion?w=1000&amp;h=800);">
+  <div class="hero-overlay bg-opacity-60"></div>
+  <div class="hero-content text-center text-neutral-content">
+    <div class="max-w-md">
+      <h1 class="mb-5 text-5xl font-bold">{% if request.GET.name %}{{request.GET.name}}{% else %}{% trans "Products" %}{% endif %}</h1>
+    </div>
+  </div>
+</div>
+<form method="GET" action="{% url 'products:store' %}" class="navbar bg-primary-content flex flex-wrap flex-row items-center justify-between gap-4 py-2 md:px-6 md:py-4">
+  <div class="dropdown"><a class="flex btn btn-ghost label px-4 md:btn-lg md:gap-2 md:px-auto" tabindex="0"><i class="fa-solid fa-filter"></i><span class="hidden md:block">{% trans "Filter" %}</span></a>
+    <div class="dropdown-content card card-compact w-80 p-2 shadow bg-primary text-primary-content md:w-96" tabindex="0">
+      <div class="card-body">
+        <h1 class="card-title">Filtros</h1>
+        <h4 class="font-bold text-lg primary-content">{% trans "Price" %}</h4>
+        <div class="flex gap-2 flex-wrap flex-row">
+          <div class="flex flex-wrap grow">
+            <input name={{search_form.price.name}} id={{search_form.price.name}} class="range" type="range" min="0" max="10000" value="10000" step="1000" data-range-move="#price-move-range" data-range-move-value="{% if request.GET.price %}{{request.GET.price}}{% else %}10000{% endif %}">
+            <div class="w-full flex justify-between text-xs px-2"><span>|</span><span>|</span><span>|</span><span>|</span><span>|</span><span>|</span><span>|</span><span>|</span><span>|</span><span>|</span></div>
+          </div>
+          <div class="flex flex-wrap font-bold text-base text-base-300 w-3/12">$<span class="ml-1" id="price-move-range"></span></div>
+        </div>
+        <h4 class="font-bold text-lg primary-content">{% trans "Categories" %}</h4>
+        <select class="select select-ghost w-full max-w-xs" name={{search_form.category.name}} id={{search_form.category.name}}>
+            <option value="">{% trans "All" %}</option>
+          {% for category in categories %}
+            <option value="{{category}}">{{category}}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+  </div>
+<div class="form-control flex grow">
+  <div class="input-group">
+      <button class="btn btn-square md:btn-lg">
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </button>
+      <input name={{search_form.name.name}} id={{search_form.name.name}} class="w-full input input-bordered md:input-lg" type="text" placeholder="{% trans "What do you need today?" %}">
+    </div>
+  </div>
+</form>
+<div class="w-full flex flex-wrap items-center justify-center py-8 gap-y-6 bg-primary-content md:py-10 md:gap-y-16 md:gap-x-8">
+  {% for product in products %}
+    {% include 'product/components/product_card.html' with selected_product=product %}
+  {% empty %}
+    <h1 class="text-neutral-content">{% trans "No Products" %}</h1>
+  {% endfor %}
+</div>
+<div class="w-full flex flex-wrap justify-center items-center bg-primary-content py-8">
+  <div class="btn-group grid grid-cols-2">
+    {% if page_obj.has_previous %}
+      <a href="?page={{page_obj.previous_page_number}}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" class="btn btn-outline">Previous page</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+      <a href="?page={{page_obj.next_page_number}}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&{{ key }}={{ value }}{% endifnotequal %}{% endfor %}" class="btn btn-outline">Next</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends 'layouts/master.html' %}
+
+{% load static i18n wagtailimages_tags wagtailcore_tags unicorn %}
+
+{% block title %}
+  Palamo. {% if request.user.is_authenticated %} | {{product.name}}{% endif %}
+{% endblock title %}
+
+{% block content %}
+{% image product.product_images.all.0.carousel_image fill-500x500 as img %}
+<div class="hero h-96 bg-cover" style="background-image: url('{{img.url}}');">
+    <div class="hero-overlay bg-opacity-60"></div>
+        <div class="hero-content text-center text-neutral-content">
+        <div class="max-w-md">
+            <h1 class="mb-5 text-5xl font-serif font-bold"></h1>
+        </div>
+        </div>
+    </div>
+  <div class="container mt-24 mb-10 flex flex-wrap justify-center flex-row px-8 md:px-auto md:gap-x-6">
+    <div class="flex flex-wrap flex-row gap-y-5 md:w-6/12 lg:w-7/12">
+        <div class="viewer-js-gallery carousel w-full">
+            {% for img_c in product.product_images.all %}
+                <div class=" carousel-item relative w-full" id="slide-{{forloop.counter0}}">
+                    {% image img_c.carousel_image original as img %}
+                    <img class="w-full cursor-pointer" src="{{img.url}}">
+                    <div class="absolute flex justify-between transform left-5 right-5 -translate-y-1/2 top-1/2">
+                        <a class="btn btn-circle" href="#slide-{% if forloop.first %}{{product.product_images.all|length|add:'-1' }}{% else %}{{forloop.counter0|add:'-1'}}{% endif %}">&#x276E;</a>
+                        <a class="btn btn-circle" href="#slide-{% if forloop.last %}0{% else %}{{forloop.counter0|add:'1'}}{% endif %}">&#x276F;</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="flex flex-wrap flex-col md:w-5/12 lg:w-4/12">
+      <h1 class="text-3xl font-bold md:mt-10 lg:mt-20">{{product.name}}</h1>
+      <h3 class="text-xl font-bold mt-4">Stock: {{product.stock}}</h1>
+      <h3 class="text-3xl mt-4">${{product.price}}</h3>
+      <p class="my-3 text-xl mt-6 text-primary-focus">{{product.description | richtext}}</p>
+      {% unicorn 'product.buy' product_id=product.id button_title='Buy Now' %}
+    </div>
+</div>
+{% endblock content %}

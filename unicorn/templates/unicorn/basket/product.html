@@ -1,0 +1,9 @@
+<div class="flex flex-wrap gap-8 items-center pb-5 pt-5 {% if extra_class %}{{extra_class}}{% endif %}">
+    <img class="h-20 w-20 rounded-full" src="{{product_image}}" alt="product image">
+    <h3 class="grow font-bold"><a href="{% url 'products:detail' product_url %}">{{product_name}}</a></h3>
+    <button unicorn:loading.attr="disabled" unicorn:click="reduce" class="btn btn-ghost">-</button>
+    <span class="mx-3 p-2 font-bold border-solid border-2 border-neutral-content rounded-md">{{product_quantity}}</span>
+    <button unicorn:loading.attr="disabled" unicorn:click="add" class="btn btn-ghost">+</button>
+    <span class="font-bold text-sm">$ {% widthratio product_price 1 product_quantity %}</span>
+    <button unicorn:loading.attr="disabled" unicorn:click="delete" class="btn btn-ghost"><i class="fa-solid fa-xmark"></i></button>
+</div>

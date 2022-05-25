@@ -51,6 +51,9 @@ class Basket(ClusterableModel, models.Model):
         SnippetChooserPanel('discount')
     ]
     
+    def __str__(self) -> str:
+        return f"{self.client.email} {_(' Basket')}"
+    
 class ProductBasket(models.Model):
     basket = ParentalKey('basket.Basket', on_delete = models.CASCADE, related_name = 'product_basket')
     product = models.ForeignKey('product.Product', on_delete=models.CASCADE, related_name='basket_product')
