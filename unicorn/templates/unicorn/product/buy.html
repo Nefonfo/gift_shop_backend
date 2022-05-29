@@ -1,18 +1,18 @@
 {% load i18n %}
 
-<div>
+<div class="w-full flex flex-col">
     {% csrf_token %}
     {% if status_response %}
-        <h1 class="text-xl font-bold text-white uppercase">{{status_response}}</h1>
+        <h1 class="w-full text-xl font-bold text-white uppercase">{{status_response}}</h1>
     {% endif %}
-    <div unicorn:loading>
-        <button disabled class="btn btn-ghost btn-lg flex flex-wrap items-center justify-center gap-3 mt-3"> 
+    <div class="w-full" unicorn:loading>
+        <button disabled class="w-full btn btn-ghost btn-lg flex flex-wrap items-center justify-center gap-3 mt-3"> 
             <i class="fa-solid fa-bag-shopping"></i>
             <span>{% trans "Please Wait..." %}</span>
         </button>
     </div>
     
-    <button unicorn:click="add_product()" unicorn:loading.class="hidden" class="btn btn-secondary btn-lg flex flex-wrap items-center justify-center gap-3 mt-3"> 
+    <button unicorn:click="add_product()" unicorn:loading.class="hidden" class="w-full btn btn-secondary flex flex-wrap items-center justify-center gap-3"> 
         <i class="fa-solid fa-bag-shopping"></i>
         <span>{{button_title}}</span>
     </button>

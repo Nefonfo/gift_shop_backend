@@ -1,13 +1,19 @@
-from django.contrib import messages
+from re import T
 from django.utils.translation import ugettext_lazy as _
 
 from django_unicorn.components import UnicornView
 
-from wagtail.images.api.fields import ImageRenditionField
 from basket.models import ProductBasket
 
 from product.models import Product
 
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ This is a model to create a reactive component to create a button to     │
+  │ buy, it will buy it if its in stock and                                  │
+  │ available                                                                │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 class BuyView(UnicornView):
     
     button_title = None
@@ -28,14 +34,14 @@ class BuyView(UnicornView):
                 product_in_cart = self.request.user.basket.product_basket.filter(product__id = product.id).first()
                 product_in_cart.quantity = product_in_cart.quantity + 1
                 product_in_cart.save()
-                self.status_response = str(_('Product added to basket'))
+                self.status_response = str(_('Added another to basket'))
             else:
                 new_product_in_cart = ProductBasket()
                 new_product_in_cart.basket = self.request.user.basket
                 new_product_in_cart.quantity = 1
                 new_product_in_cart.product = product
                 new_product_in_cart.save()
-                self.status_response = str(_('Added another to basket'))
+                self.status_response = str(_('Product added to basket'))  
         else:
             self.status_response = str(_('Product not available'))
         

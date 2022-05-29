@@ -5,6 +5,14 @@ from django.utils.translation import ugettext_lazy as _
 from wagtail.snippets.models import register_snippet
 from wagtail.search import index
 
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ this model its for override the user manager model (we need to change    │
+  │ the login method to email instead of username), the user manager its     │
+  │ the object that we use when we call                                      │
+  │ <Model>.objects.<query>                                                  │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 class UserManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
 
@@ -40,6 +48,13 @@ class UserManager(BaseUserManager):
 
 # Create your models here.
 
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ This model will replace the default user model that use django in        │
+  │ django.contrib.auth.models, and here will change the object              │
+  │ objects                                                                  │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 @register_snippet
 class User(index.Indexed, AbstractUser):
     username = None

@@ -1,4 +1,4 @@
-{% load i18n wagtailimages_tags %}
+{% load i18n wagtailimages_tags unicorn %}
 
 <div class="card bg-base-100 shadow-xl w-full md:w-2/5  lg:w-1/4">
     {% image selected_product.product_images.all.0.carousel_image fill-500x500 as img %}
@@ -11,8 +11,9 @@
                 <div class="badge badge-outline">{{tag}}</div>
             {% endfor %}
     </div>
-    <div class="card-actions justify-end">
-        <a href="{% url 'products:detail' selected_product.url %}" class="btn btn-primary">{% trans "See Product" %}</a>
+    <div class="card-actions justify-end items-center">
+        {% if request.user.is_authenticated %}{% unicorn 'product.buy' product_id=product.id button_title='Buy Now' %}{% endif %}
+        <a href="{% url 'products:detail' selected_product.url %}" class="btn btn-primary w-full">{% trans "See Product" %}</a>
     </div>
     </div>
 </div>

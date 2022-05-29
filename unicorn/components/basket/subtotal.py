@@ -1,6 +1,12 @@
 from django_unicorn.components import UnicornView
 
 
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ This model creates a reactive component to recharge the subtotal of the  │
+  │ basket                                                                   │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 class SubtotalView(UnicornView):
     
     subtotal = 0
@@ -10,6 +16,4 @@ class SubtotalView(UnicornView):
         self.get_subtotal()
         
     def get_subtotal(self):
-        self.subtotal = 0
-        for product in self.request.user.basket.product_basket.all():
-            self.subtotal = self.subtotal + float(product.quantity * product.product.price)
+        self.subtotal = self.request.user.basket.subtotal()

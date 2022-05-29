@@ -11,12 +11,13 @@ from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
 
 from registration.models import User
 
-# Create your models here.
-class ShippmentMethod(models.Model):
-    name = models.CharField(max_length=70, verbose_name=_('Name'))
-    days = models.IntegerField(verbose_name=_('Day to deliver'))
-
-
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ Order will be a model to save in the same db table, will related with a  │
+  │ many to many relation with                                               │
+  │ product                                                                  │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 @register_snippet
 class Order(ClusterableModel, models.Model):
     
@@ -88,6 +89,16 @@ class Order(ClusterableModel, models.Model):
     def total(self):
         return self.sub_total - self.discount
     
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ This is the model for the many to many relationship, here will save the  │
+  │ price data of product (Why we need that if we have a product relation    │
+  │ that can told us the price? Because always the price is variable, so we  │
+  │ need to save the price whe it is                                         │
+  │ ordered)                                                                 │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
+ 
 class ProductOrder(models.Model):
     order = ParentalKey('order.Order', on_delete = models.CASCADE, related_name = 'product_order')
     product = models.ForeignKey('product.Product', on_delete=models.CASCADE, related_name='order_product')

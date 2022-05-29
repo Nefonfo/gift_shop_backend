@@ -8,6 +8,14 @@ from django.contrib import messages
 from .models import ClientAddress
 # Create your views here.
 
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ ClientAddressView is a render html view that will display the address    │
+  │ of the logged user (login required to                                    │
+  │ access)                                                                  │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
+
 class ClientAddressListView(LoginRequiredMixin, ListView):
     template_name = "address/client_address_list_view.html"
     model = ClientAddress
@@ -15,7 +23,13 @@ class ClientAddressListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return ClientAddress.objects.filter(client = self.request.user)
-    
+ 
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ ClientAddressCreateView is a view to create a new address for the user   │
+  │ logged (login required)                                                  │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 class ClientAddressCreateView(LoginRequiredMixin, CreateView):
     template_name = "address/client_address_create_view.html"
     model = ClientAddress
@@ -29,6 +43,13 @@ class ClientAddressCreateView(LoginRequiredMixin, CreateView):
         messages.success(self.request, _('Created Successful'))
         return reverse('address:view')
     
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ ClientAddressUpdateView is a view to update an address login and id of   │
+  │ the address is                                                           │
+  │ required                                                                 │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 class ClientAddressUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "address/client_address_update_view.html"
     model = ClientAddress
@@ -44,6 +65,13 @@ class ClientAddressUpdateView(LoginRequiredMixin, UpdateView):
         messages.success(self.request, _('Updated Successful'))
         return reverse('address:view')
     
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ ClientAddressDeleteView is a view to delete an user address, login and   │
+  │ address id                                                               │
+  │ required                                                                 │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 class ClientAddressDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "address/client_address_delete_view.html"
     model = ClientAddress

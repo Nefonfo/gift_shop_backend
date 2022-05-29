@@ -6,6 +6,14 @@ from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ This is a page model to create many pages with this parameters, this     │
+  │ can be used to create some releases to clients. This pages will be       │
+  │ located in                                                               │
+  │ <URLBASE>/cms/<slugname>                                                 │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 class GenericPage(Page):
     header_text = models.CharField(null = True, blank = False, max_length=60, verbose_name = _('Header Text'))
     header_image = models.ForeignKey(

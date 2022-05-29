@@ -1,9 +1,18 @@
 from django.shortcuts import redirect
 from django_unicorn.components import UnicornView
 from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
+from django.contrib import messages
 
 from product.models import Product
 
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ This is an reactive component to show the product in the basket list,    │
+  │ this helps to add, reduce or delete products without                     │
+  │ recharge                                                                 │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 class ProductView(UnicornView):
     product_url = ''
     product_id = None
@@ -46,6 +55,8 @@ class ProductView(UnicornView):
     def delete(self):
         product = Product.objects.get(id = self.product_id)
         product_in_cart = self.request.user.basket.product_basket.filter(product__id = product.id).first()
+        product.stock = product.stock + product_in_cart.quantity
+        product.save()
         product_in_cart.delete()
-        
+        messages.success(self.request, _('Delete product sucessful'))
         return redirect(reverse('basket:user'))

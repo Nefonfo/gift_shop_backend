@@ -18,21 +18,27 @@
 <div class="w-full flex flex-wrap py-16 px-2 md:px-10">
     <div class="w-full flex flex-wrap flex-col justify-center py-4 px-6 bg-base-300 shadow-md rounded-lg md:px-14 md:py-8">
         <h1 class="text-3xl font-bold mb-10">{% trans "My Basket" %}</h1>
-        {% for product_basket in basket.product_basket.all %}
-            {% image product_basket.product.product_images.all.0.carousel_image fill-500x500 as product_image %}
-            {% if not forloop.first %}
-                {% unicorn 'basket.product' product_id=product_basket.product.id product_url=product_basket.product.url product_name=product_basket.product.name product_image=product_image.url product_quantity=product_basket.quantity product_price=product_basket.product.price extra_class='pt-5 border-t border-neutral-content' %}
-            {% else %}
-                {% unicorn 'basket.product' product_id=product_basket.product.id product_url=product_basket.product.url product_name=product_basket.product.name product_image=product_image.url product_quantity=product_basket.quantity product_price=product_basket.product.price %}
-            {% endif %}
-        {% endfor %}
-        <div class="flex flex-wrap gap-3 items-center justify-end pb-5 pt-5 border-t border-neutral-content">
-            <h1 class="text-md font-bold text-white uppercase">{% trans "Subtotal" %}</h1>
-            {% unicorn 'basket.subtotal' %}
-        </div>
-        <div class="flex flex-wrap gap-3 items-center justify-end pb-5 pt-5">
-            <a class="btn btn-accent">{% trans "Go to Checkout" %}</a>
-        </div>
+        {% if basket.product_basket.all %}
+            {% for product_basket in basket.product_basket.all %}
+                {% image product_basket.product.product_images.all.0.carousel_image fill-500x500 as product_image %}
+                {% if not forloop.first %}
+                    {% unicorn 'basket.product' product_id=product_basket.product.id product_url=product_basket.product.url product_name=product_basket.product.name product_image=product_image.url product_quantity=product_basket.quantity product_price=product_basket.product.price extra_class='pt-5 border-t border-neutral-content' %}
+                {% else %}
+                    {% unicorn 'basket.product' product_id=product_basket.product.id product_url=product_basket.product.url product_name=product_basket.product.name product_image=product_image.url product_quantity=product_basket.quantity product_price=product_basket.product.price %}
+                {% endif %}
+            {% endfor %}
+            <div class="flex flex-wrap gap-3 items-center justify-end pb-5 pt-5 border-t border-neutral-content">
+                <h1 class="text-md font-bold text-white uppercase">{% trans "Subtotal" %}</h1>
+                {% unicorn 'basket.subtotal' %}
+            </div>
+            <div class="flex flex-wrap gap-3 items-center justify-end pb-5 pt-5">
+                <a class="btn btn-accent">{% trans "Go to Checkout" %}</a>
+            </div>
+        {% else %}
+            <div class="flex flex-wrap flex-col items-center justify-center">
+                <h1 class="text-xl font-bold">{% trans 'No products on basket' %}</h1>
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock content %}

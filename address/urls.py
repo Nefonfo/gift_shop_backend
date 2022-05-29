@@ -7,6 +7,12 @@ from .views import (
     ClientAddressDeleteView
 )
 
+""" 
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ This file is to have the variable for urls located in address app and this will be imported in setting base.py                                                                                                                   │
+  └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ """
+
 address_patterns = ([
     path('', ClientAddressListView.as_view(), name='view'),
     path('add/', ClientAddressCreateView.as_view(), name='add'),

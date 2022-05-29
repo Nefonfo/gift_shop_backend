@@ -9,7 +9,11 @@ from wagtail.search import index
 
 from registration.models import User
 
-# Create your models here.
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ # ClientAddress is a db model who is indexed (searchable with fieldpanels and relational values (populated))                                                                                     │
+  └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+"""
 @register_snippet
 class ClientAddress(index.Indexed, models.Model):
     client = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name=_('Client'))

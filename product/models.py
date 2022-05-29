@@ -19,6 +19,13 @@ from wagtail.admin.edit_handlers import (
 )
 
 # Create your models here.
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ This is will create a relation of tags for products, this will be the    │
+  │ relation of many to many (between product and taggit                     │
+  │ models)                                                                  │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 @register_snippet
 class ProductTag(TaggedItemBase):
     content_object = ParentalKey(
@@ -27,6 +34,14 @@ class ProductTag(TaggedItemBase):
         on_delete=models.CASCADE,
     )
 
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ This will be a model to create a one to many relationship but with the   │
+  │ feature to be ordered (will create a list of this many objects and be    │
+  │ ordered as we                                                            │
+  │ need)                                                                    │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 @register_snippet
 class ProductCarouselImages(Orderable):
     product = ParentalKey('product.Product', related_name = 'product_images')
@@ -39,7 +54,13 @@ class ProductCarouselImages(Orderable):
     )
     panels = [ImageChooserPanel("carousel_image")]
     
-    
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ This will be our product model for the database, will be related with a  │
+  │ lot of tables and                                                        │
+  │ models                                                                   │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 @register_snippet
 class Product(ClusterableModel, models.Model):
     name = models.CharField(max_length=70, verbose_name=_('Name'))

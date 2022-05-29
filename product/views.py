@@ -1,26 +1,30 @@
 from django.db.models import Q
-from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView
 from product.forms import ProductSearchForm
 
-from django_unicorn.components import UnicornView
-
 from product.models import Product
-from basket.models import Basket
-# Create your views here.
+
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ This model its to create the main index view, it will show the recent    │
+  │ products                                                                 │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 class ProductIndexView(TemplateView):
     template_name = 'product/product_index.html'
-    
     
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         context_data['index_products'] = Product.objects.filter(Q(available = True) & Q(stock__gt = 0)).order_by('-created_at')[:10]
-        if self.request.user.is_authenticated:    
-            context_data['user_basket'] = Basket.objects.get_or_create(client = self.request.user)
-        else:
-            context_data['user_basket'] = None
         return context_data
-    
+
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ This page will list the products paginated by 10 and order by creation.  │
+  │ It will be posible to filter by a form with the parameters: name, price  │
+  │ and category                                                             │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 class ProductListView(ListView):
     model = Product
     paginate_by = 10
@@ -49,6 +53,11 @@ class ProductListView(ListView):
         qs = self.model.objects.filter(qs_filter).order_by('-created_at')
         return qs
     
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ This view will show the product details, will be need the slug name      │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 class ProductDetailView(DetailView):
     model = Product
     context_object_name = 'product'

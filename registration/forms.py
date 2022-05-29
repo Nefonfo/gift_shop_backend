@@ -1,3 +1,4 @@
+import profile
 from django.db.utils import IntegrityError
 from django.core.files.images import ImageFile
 from django.utils.translation import gettext_lazy as _
@@ -10,13 +11,31 @@ from wagtail.users.models import UserProfile
 
 from .models import User
 
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ Internal model to override the user edit model form, because we          │
+  │ need to login with email and not with                                    │
+  │ username                                                                 │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 class CustomUserEditForm(UserEditForm):
     email = forms.EmailInput(attrs={'label':  _('Email'), 'required': True})
 
-
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ Internal model to override the user create model form, because we        │
+  │ need to login with email and not with                                    │
+  │ username                                                                 │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailInput(attrs={'label':  _('Email'), 'required': True})
     
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ this form is used to registration model                                  │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 class UserRegisterForm(UserCreationForm):
     class Meta:
         fields = ['first_name', 'last_name', 'email', 'password1', 'password2',]
@@ -26,6 +45,11 @@ class UserRegisterForm(UserCreationForm):
         super(UserRegisterForm, self).__init__(*args, **kwargs)
         self.fields.pop('is_superuser')
 
+""" 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │ this form model helps to edit the user profile (avatar included)         │
+  └──────────────────────────────────────────────────────────────────────────┘
+ """
 class UserProfileForm(forms.Form):
     avatar = forms.ImageField(required = False, label = _('Avatar'))
     email = forms.EmailField(required = True, label = _('Email'))
