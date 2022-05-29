@@ -1,6 +1,8 @@
 from django_unicorn.components import UnicornView
 from django.db.models import Sum
 
+from basket.models import Basket
+
 """ 
   ┌──────────────────────────────────────────────────────────────────────────┐
   │ This class its a reactive view that its rendered as a compononent in     │
@@ -19,5 +21,6 @@ class NavbarIconView(UnicornView):
     
     
     def view_cart(self):
-        self.products_quantity = self.request.user.basket.quantity();
-        self.subtotal = self.request.user.basket.subtotal();
+        basket = Basket.objects.get_or_create(client = self.request.user)
+        self.products_quantity = basket.quantity();
+        self.subtotal = basket.subtotal();

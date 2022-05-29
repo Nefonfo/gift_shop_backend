@@ -75,7 +75,6 @@ class Basket(ClusterableModel, models.Model):
         products_quantity = 0
         for product in self.client.basket.product_basket.all():
             products_quantity = int(products_quantity + product.quantity)
-            
         return products_quantity
     
     def subtotal(self) -> float:
