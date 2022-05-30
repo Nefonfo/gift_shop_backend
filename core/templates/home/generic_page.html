@@ -19,7 +19,7 @@
 {% endblock extra_css %}
 
 {% block content %}
-{% image page.header_image original as back_img %}
+{% image page.header_image original format-webp as back_img %}
 <div class="hero h-96 bg-cover" style="background-image: url({{back_img.url}});">
     <div class="hero-overlay bg-opacity-60"></div>
     <div class="hero-content text-center text-neutral-content">

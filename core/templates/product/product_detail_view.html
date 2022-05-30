@@ -7,7 +7,7 @@
 {% endblock title %}
 
 {% block content %}
-{% image product.product_images.all.0.carousel_image fill-500x500 as img %}
+{% image product.product_images.all.0.carousel_image fill-500x500 format-webp as img %}
 <div class="hero h-96 bg-cover" style="background-image: url('{{img.url}}');">
     <div class="hero-overlay bg-opacity-60"></div>
         <div class="hero-content text-center text-neutral-content">
