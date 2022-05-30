@@ -3,8 +3,18 @@
 {% load static i18n wagtailcore_tags wagtailimages_tags %}
 
 {% block title %}
-    Palamo. | {{page.title}}
+Palamo. | {{page.title}}
 {% endblock title %}
+
+{% block extra_css %}
+ul {
+  list-style-type: disc;  
+}
+
+ol {
+  list-style-type: decimal;
+}
+{% endblock extra_css %}
 
 {% block content %}
 {% image page.header_image original as back_img %}
