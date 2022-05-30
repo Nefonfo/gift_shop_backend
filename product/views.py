@@ -15,7 +15,7 @@ class ProductIndexView(TemplateView):
     
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        context_data['index_products'] = Product.objects.filter(Q(available = True) & Q(stock__gt = 0)).order_by('-created_at')[:10]
+        context_data['index_products'] = Product.objects.filter(Q(available = True) & Q(stock__gt = 0)).order_by('-created_at')[:9]
         return context_data
 
 """ 
