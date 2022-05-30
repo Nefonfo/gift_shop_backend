@@ -27,7 +27,7 @@ class ProductIndexView(TemplateView):
  """
 class ProductListView(ListView):
     model = Product
-    paginate_by = 10
+    paginate_by = 9
     context_object_name = 'products'
     ordering = ['-created_at']
     form_class = ProductSearchForm
