@@ -1,7 +1,7 @@
 from django.db.models import Q
 from django.views.generic import TemplateView, ListView, DetailView
 from product.forms import ProductSearchForm
-
+from wagtail.search.backends import get_search_backend
 from product.models import Product
 
 """ 
@@ -41,17 +41,21 @@ class ProductListView(ListView):
     
     def get_queryset(self):
         form = self.form_class(self.request.GET)
+        qs = self.model.objects.none()
         qs_filter = Q(available = True)
         qs_filter &= Q(stock__gt = 0)
+        s = get_search_backend()
         if form.is_valid():
-            if form.cleaned_data['name']:
-                qs_filter &= Q(name__icontains = form.cleaned_data['name'])
             if form.cleaned_data['price']:
                 qs_filter &= Q(price__lte = form.cleaned_data['price'])
             if form.cleaned_data['category']:
                 qs_filter &= Q(tags__name__in = [form.cleaned_data['category'], ])
-        qs = self.model.objects.filter(qs_filter).order_by('-created_at')
+            if form.cleaned_data['name']:
+                qs = s.search(form.cleaned_data['name'], self.model.objects.filter(qs_filter).order_by('-created_at'))
+            else:
+                qs = self.model.objects.filter(qs_filter).order_by('-created_at')
         return qs
+
     
 """ 
   ┌──────────────────────────────────────────────────────────────────────────┐

@@ -180,6 +180,7 @@ WAGTAIL_SITE_NAME = "gift_shop"
 WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'wagtail.search.backends.database',
+        'AUTO_UPDATE': False,
     }
 }
 

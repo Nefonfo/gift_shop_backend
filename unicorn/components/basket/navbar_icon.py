@@ -22,6 +22,5 @@ class NavbarIconView(UnicornView):
     
     def view_cart(self):
         basket, created = Basket.objects.get_or_create(client = self.request.user)
-        print(basket)
         self.products_quantity = basket.quantity();
         self.subtotal = basket.subtotal();

@@ -9,6 +9,7 @@ from taggit.models import TaggedItemBase
 from autoslug import AutoSlugField
 
 from wagtail.core.models import Orderable
+from wagtail.search import index
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.core.fields import RichTextField
@@ -62,7 +63,7 @@ class ProductCarouselImages(Orderable):
   └──────────────────────────────────────────────────────────────────────────┘
  """
 @register_snippet
-class Product(ClusterableModel, models.Model):
+class Product(index.Indexed, ClusterableModel, models.Model):
     name = models.CharField(max_length=70, verbose_name=_('Name'))
     url = AutoSlugField(populate_from='name', unique = True)
     description = RichTextField(verbose_name=_('Description'))
@@ -73,6 +74,14 @@ class Product(ClusterableModel, models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    search_fields = [
+        index.SearchField('name', partial_match = True),
+        index.SearchField('description', partial_match = True),
+        index.FilterField('stock'),
+        index.FilterField('available'),
+        index.FilterField('price'),
+        index.FilterField('name') 
+    ]
     
     panels = [
         FieldPanel('name'),
