@@ -7,13 +7,15 @@ Palamo. | {{page.title}}
 {% endblock title %}
 
 {% block extra_css %}
-ul {
-  list-style-type: disc;  
-}
-
-ol {
-  list-style-type: decimal;
-}
+<style>
+  ul {
+    list-style-type: disc !important;  
+  }
+  
+  ol {
+    list-style-type: decimal !important;
+  }
+</style>
 {% endblock extra_css %}
 
 {% block content %}
