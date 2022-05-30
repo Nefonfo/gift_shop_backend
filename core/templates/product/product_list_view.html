@@ -23,7 +23,7 @@
         <h4 class="font-bold text-lg primary-content">{% trans "Price" %}</h4>
         <div class="flex gap-2 flex-wrap flex-row">
           <div class="flex flex-wrap grow">
-            <input name={{search_form.price.name}} id={{search_form.price.name}} class="range" type="range" min="0" max="50000" value="50000" step="1000" data-range-move="#price-move-range" data-range-move-value="{% if request.GET.price %}{{request.GET.price}}{% else %}50000{% endif %}">
+            <input name={{search_form.price.name}} id={{search_form.price.name}} class="range" type="range" min="0" max="50000" value="50000" step="100" data-range-move="#price-move-range" data-range-move-value="{% if request.GET.price %}{{request.GET.price}}{% else %}50000{% endif %}">
             <div class="w-full flex justify-between text-xs px-2"><span>|</span><span>|</span><span>|</span><span>|</span><span>|</span><span>|</span><span>|</span><span>|</span><span>|</span><span>|</span></div>
           </div>
           <div class="flex flex-wrap font-bold text-base text-base-300 w-3/12">$<span class="ml-1" id="price-move-range"></span></div>
