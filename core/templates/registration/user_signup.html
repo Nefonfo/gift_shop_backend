@@ -29,7 +29,7 @@ Palamo. | {% trans "Sign In" %}
             </div>
             <div class="flex flex-col justify-start text-left my-2">
               <a class="link" href="#register">{% trans "Not registered?" %}</a>
-              <a class="link" href="">{% trans "Forgot password?" %}</a>
+              <a class="link" href="{% url 'password_reset' %}">{% trans "Forgot password?" %}</a>
             </div>
             <div class="card-actions justify-end">
               <button type="submit" id="sign_button" class="btn btn-primary" name='action' value='login'>Entrar</button>

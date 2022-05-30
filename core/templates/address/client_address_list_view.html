@@ -9,8 +9,8 @@
     <div class="hero-overlay bg-opacity-60"></div>
     <div class="hero-content text-center text-neutral-content">
       <div class="max-w-md">
-        <h1 class="mb-5 text-5xl font-serif font-bold">Mis Direcciones</h1>
-        <a href="{% url 'address:add' %}" class="btn btn-primary">Agregar Dirección</a>
+        <h1 class="mb-5 text-5xl font-serif font-bold">{% trans "My addreses" %}</h1>
+        <a href="{% url 'address:add' %}" class="btn btn-primary">{% trans "Add Address" %}</a>
       </div>
     </div>
 </div>
@@ -19,7 +19,7 @@
         {% include 'address/components/address_card.html' with card_address=client_address %}
     {% empty %}
         <div class="w-full flex flex-wrap justify-center">
-            <h1 class="font-bold font-serif text-4xl text-primary">No hay direcciones aún </h1>
+            <h1 class="font-bold font-serif text-4xl text-primary">{% trans "Not addresses yet." %}</h1>
         </div>
     {% endfor %}    
 

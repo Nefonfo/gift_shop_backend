@@ -1,13 +1,26 @@
-<!DOCTYPE html>
-<html class="no-js">
-    <head>
-        <meta charset="utf-8" />
-        <title>Internal server error</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-    </head>
-    <body>
-        <h1>Internal server error</h1>
+{% load static %}
 
-        <h2>Sorry, there seems to be an error. Please try again soon.</h2>
-    </body>
+<!DOCTYPE html>
+<html lang="es" data-theme="luxury">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <title>505 - Server error</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'core/css/main.css' %}">
+  <body>
+    <div class="hero h-screen bg-cover" style="background-image: url({% static 'core/assets/img/500_magi.gif' %})">
+        <div class="hero-overlay bg-opacity-60"></div>
+        <div class="hero-content text-center text-neutral-content">
+            <div class="max-w-md">
+            <h1 class="text-9xl font-bold font-serif mb-5">500</h1>
+            <p class="text-xl font-serif mb-5 md:text-2xl">We all make mistakes... Yes?</p>
+            <a class="btn btn-lg btn-primary" href="{% url 'products:index' %}">Lets go buy!</a>
+            </div>
+        </div>
+    </div>
+    {# Global javascript #}
+    <script defer src="{% static 'core/js/main.min.js' %}"></script>
+  </body>
 </html>
