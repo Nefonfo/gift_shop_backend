@@ -24,8 +24,8 @@
                     {% image img_c.carousel_image original as img %}
                     {% image img_c.carousel_image original format-webp as img_webp %}
                     <picture class="w-full cursor-pointer">
-                      <source srcset="{{img_webp.url}}" type="image/webp">
-                      <source srcset="{{img.url}}" type="image/jpeg"> 
+                      <source type="image/webp" srcset="{{img_webp.url}}">
+                      <source type="image/jpeg" srcset="{{img.url}}"> 
                       <img src="{{img.url}}" alt="{{product.name}} Image {{forloop.counter}}">
                     </picture>
                     <div class="absolute flex justify-between transform left-5 right-5 -translate-y-1/2 top-1/2">
