@@ -1,7 +1,11 @@
 from django.db.models import Q
+from django.http import Http404
+from django.http import Http404
 from django.views.generic import TemplateView, ListView, DetailView
-from product.forms import ProductSearchForm
+
 from wagtail.search.backends import get_search_backend
+
+from product.forms import ProductSearchForm
 from product.models import Product
 
 """ 
@@ -55,6 +59,12 @@ class ProductListView(ListView):
             else:
                 qs = self.model.objects.filter(qs_filter).order_by('-created_at')
         return qs
+    
+    def dispatch(self, *args, **kwargs):
+        try:
+            return super().dispatch(*args, **kwargs)
+        except Http404:
+            raise Http404
 
     
 """ 
