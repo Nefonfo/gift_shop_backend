@@ -3,7 +3,7 @@
 {% load static i18n wagtailimages_tags wagtailcore_tags unicorn %}
 
 {% block title %}
-  Palamo. {% if request.user.is_authenticated %} | {{product.name}}{% endif %}
+  {{product.name}}
 {% endblock title %}
 
 {% block content %}
