@@ -22,7 +22,12 @@
             {% for img_c in product.product_images.all %}
                 <div class=" carousel-item relative w-full" id="slide-{{forloop.counter0}}">
                     {% image img_c.carousel_image original as img %}
-                    <img class="w-full cursor-pointer" src="{{img.url}}">
+                    {% image img_c.carousel_image original format-webp as img_webp %}
+                    <picture class="w-full cursor-pointer">
+                      <source srcset="{{img_webp.url}}" type="image/webp">
+                      <source srcset="{{img.url}}" type="image/jpeg"> 
+                      <img src="{{img.url}}" alt="{{product.name}} Image {{forloop.counter}}">
+                    </picture>
                     <div class="absolute flex justify-between transform left-5 right-5 -translate-y-1/2 top-1/2">
                         <a class="btn btn-circle" href="#slide-{% if forloop.first %}{{product.product_images.all|length|add:'-1' }}{% else %}{{forloop.counter0|add:'-1'}}{% endif %}">&#x276E;</a>
                         <a class="btn btn-circle" href="#slide-{% if forloop.last %}0{% else %}{{forloop.counter0|add:'1'}}{% endif %}">&#x276F;</a>
